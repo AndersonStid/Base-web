@@ -1,0 +1,62 @@
+# Generated files
+bin/
+gen/
+out/
+*.xls
+
+# Gradle files
+MIS_PAGOS_WEB_AUTOMATIZACION/.gradle/
+MIS_PAGOS_WEB_AUTOMATIZACION/.gradle
+MIS_PAGOS_WEB_AUTOMATIZACION/build/
+.gradle
+build/
+
+# Compiled class file
+*.class
+
+# Log Files
+*.log
+*.log.*
+
+# IntelliJ
+*.iml
+*.iws
+MIS_PAGOS_WEB_AUTOMATIZACION/.idea/
+MIS_PAGOS_WEB_AUTOMATIZACION/idea/
+.idea/
+idea/
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Sonarlint plugin
+.idea/sonarlint
+.scannerwork/
+
+# Package Files #
+*.nar
+*.zip
+*.tar.gz
+*.rar
+*.war
+*.ear
+
+# ignore files target
+target/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Mac
+.DS_Store
+
+### windowsOS ###
+*.exe
+
+# Maven
+log/

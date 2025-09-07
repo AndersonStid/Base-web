@@ -1,0 +1,41 @@
+plugins {
+    id "net.serenity-bdd.serenity-gradle-plugin" version "4.0.46"
+    id 'java'
+    id 'jvm-test-suite'
+    id 'eclipse'
+    id 'idea'
+}
+
+defaultTasks 'clean', 'test', 'aggregate'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        def var = languageVersion = JavaLanguageVersion.of(11)
+        var
+    }
+}
+
+dependencies {
+    implementation 'net.serenity-bdd:serenity-core:4.1.10'
+    implementation 'net.serenity-bdd:serenity-junit:4.1.10'
+    implementation 'net.serenity-bdd:serenity-cucumber:4.1.10'
+    implementation 'net.serenity-bdd:serenity-screenplay:4.1.10'
+    implementation 'org.assertj:assertj-core:3.25.3'
+    implementation 'org.slf4j:slf4j-simple:2.0.13'
+    implementation 'org.apache.pdfbox:pdfbox:3.0.3'
+    implementation 'net.serenity-bdd:serenity-screenplay-webdriver:4.1.10'
+    implementation 'net.serenity-bdd:serenity-browserstack:4.1.10'
+
+}
+
+test {
+    systemProperties System.getProperties()
+}
+
+gradle.startParameter.continueOnFailure = true
+
+test.finalizedBy(aggregate)
