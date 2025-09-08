@@ -1,4 +1,4 @@
-package com.banistmo.certificacion.mispagos.stepdefinitions.Login;
+package com.banistmo.certificacion.mispagos.stepdefinitions;
 
 import com.banistmo.certificacion.mispagos.questions.LoginValidateText;
 import com.banistmo.certificacion.mispagos.tasks.LoginCredentials;
