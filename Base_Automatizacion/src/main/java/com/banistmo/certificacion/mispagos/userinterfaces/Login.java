@@ -13,7 +13,7 @@ public class Login {
     public static final Target TEXT_ERROR = Target.the("Compare text").
             located(By.id("swal2-html-container"));
     public static final Target TEXT_SUCCESSFULL_LOGIN = Target.the("Compare text").
-            located(By.xpath("//h1[contains(.,'MisPagos Banistmo')]"));
+            located(By.xpath("//*[@id=\"Madonna\"]/a"));
 
     private Login() {
     }

@@ -1,34 +1,41 @@
 plugins {
-    id 'net.serenity-bdd.serenity-gradle-plugin' version '4.2.34'
+    id "net.serenity-bdd.serenity-gradle-plugin" version "4.0.46"
     id 'java'
+    id 'jvm-test-suite'
+    id 'eclipse'
+    id 'idea'
+}
+
+defaultTasks 'clean', 'test', 'aggregate'
+
+repositories {
+    mavenCentral()
 }
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        def var = languageVersion = JavaLanguageVersion.of(21)
+        var
     }
 }
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-    gradlePluginPortal()
-}
-
-ext {
-    serenityVersion = '4.2.34'
-    lombokVersion = '1.18.24'
-}
-
 dependencies {
-    implementation "net.serenity-bdd:serenity-core:${serenityVersion}"
-    implementation "net.serenity-bdd:serenity-junit5:${serenityVersion}" // si usas JUnit5
-    implementation "net.serenity-bdd:serenity-screenplay-webdriver:${serenityVersion}"
-    implementation "net.serenity-bdd:serenity-rest-assured:${serenityVersion}"
-    implementation "net.serenity-bdd:serenity-screenplay-rest:${serenityVersion}"
-    implementation "org.projectlombok:lombok:${lombokVersion}"
-    testImplementation 'org.assertj:assertj-core:3.24.2'
-    testImplementation 'org.hamcrest:hamcrest:2.2'
-    testImplementation "net.serenity-bdd:serenity-junit5:${serenityVersion}"
-    testImplementation "net.serenity-bdd:serenity-cucumber:${serenityVersion}"
+    implementation 'net.serenity-bdd:serenity-core:4.1.10'
+    implementation 'net.serenity-bdd:serenity-junit:4.1.10'
+    implementation 'net.serenity-bdd:serenity-cucumber:4.1.10'
+    implementation 'net.serenity-bdd:serenity-screenplay:4.1.10'
+    implementation 'org.assertj:assertj-core:3.25.3'
+    implementation 'org.slf4j:slf4j-simple:2.0.13'
+    implementation 'org.apache.pdfbox:pdfbox:3.0.3'
+    implementation 'net.serenity-bdd:serenity-screenplay-webdriver:4.1.10'
+    implementation 'net.serenity-bdd:serenity-browserstack:4.1.10'
+
 }
+
+test {
+    systemProperties System.getProperties()
+}
+
+gradle.startParameter.continueOnFailure = true
+
+test.finalizedBy(aggregate)
