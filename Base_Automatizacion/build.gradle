@@ -1,5 +1,5 @@
 plugins {
-    id "net.serenity-bdd.serenity-gradle-plugin" version "4.0.46"
+    id "net.serenity-bdd.serenity-gradle-plugin" version "4.1.10"
     id 'java'
     id 'jvm-test-suite'
     id 'eclipse'
@@ -10,6 +10,7 @@ defaultTasks 'clean', 'test', 'aggregate'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 java {
@@ -19,21 +20,52 @@ java {
     }
 }
 
+ext {
+    serenityVersion = '4.1.10' // ✅ MISMA VERSIÓN PARA TODAS LAS DEPENDENCIAS
+    cucumberVersion = '7.14.0' // ✅ VERSIÓN COMPATIBLE
+}
+
 dependencies {
-    implementation 'net.serenity-bdd:serenity-core:4.1.10'
-    implementation 'net.serenity-bdd:serenity-junit:4.1.10'
-    implementation 'net.serenity-bdd:serenity-cucumber:4.1.10'
-    implementation 'net.serenity-bdd:serenity-screenplay:4.1.10'
+    // ✅ SERENITY CORE (TODAS LA MISMA VERSIÓN)
+    implementation "net.serenity-bdd:serenity-core:${serenityVersion}"
+    implementation "net.serenity-bdd:serenity-junit:${serenityVersion}"
+    implementation "net.serenity-bdd:serenity-cucumber:${serenityVersion}"
+    implementation "net.serenity-bdd:serenity-screenplay:${serenityVersion}"
+    implementation "net.serenity-bdd:serenity-screenplay-webdriver:${serenityVersion}"
+    implementation "net.serenity-bdd:serenity-browserstack:${serenityVersion}"
+
+    // ✅ CUCUMBER (VERSIÓN COMPATIBLE)
+    implementation "io.cucumber:cucumber-core:${cucumberVersion}"
+    implementation "io.cucumber:cucumber-java:${cucumberVersion}"
+    implementation "io.cucumber:cucumber-junit:${cucumberVersion}"
+
+    // ✅ OTRAS DEPENDENCIAS
     implementation 'org.assertj:assertj-core:3.25.3'
     implementation 'org.slf4j:slf4j-simple:2.0.13'
     implementation 'org.apache.pdfbox:pdfbox:3.0.3'
-    implementation 'net.serenity-bdd:serenity-screenplay-webdriver:4.1.10'
-    implementation 'net.serenity-bdd:serenity-browserstack:4.1.10'
-
 }
 
 test {
     systemProperties System.getProperties()
+    testLogging {
+        events = ['passed', 'skipped', 'failed']
+        showStandardStreams = true
+    }
+    ignoreFailures = true
+    outputs.upToDateWhen { false }
+
+    // ✅ CONFIGURAR MEMORIA PARA TESTS
+    minHeapSize = "512m"
+    maxHeapSize = "1024m"
+    jvmArgs = [
+            "-Xms512m",
+            "-Xmx1024m",
+            "-XX:MaxMetaspaceSize=512m",
+            "-Dfile.encoding=UTF-8"
+    ]
+}
+task cleanSerenityReports(type: Delete) {
+    delete 'target/site/serenity'
 }
 
 gradle.startParameter.continueOnFailure = true

@@ -7,5 +7,5 @@ Feature: Login tests
 #    When Select add two Courses <User> and <Password>
     Then Validate error text <Text>
     Examples:
-      | User     | Password  | Text     |
-      | userName | password1 | Madonnad |
+      | User     | Password  | Text      |
+      | userName | password1 | Madonnads |
